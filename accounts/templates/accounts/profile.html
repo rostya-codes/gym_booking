@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h2>My Profile</h2>
+
+<div class="card p-3">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <a href="{% url 'my_bookings' %}" class="btn btn-primary mt-2">My Bookings</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger mt-2">Log Out</a>
+</div>
+{% endblock %}
