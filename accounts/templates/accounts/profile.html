@@ -3,13 +3,87 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-<h2>My Profile</h2>
 
-<div class="card p-3">
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
+<div class="container mt-5">
+    <h2>My Profile</h2>
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
 
-    <a href="{% url 'my_bookings' %}" class="btn btn-primary mt-2">My Bookings</a>
-    <a href="{% url 'logout' %}" class="btn btn-danger mt-2">Log Out</a>
+        <!-- Field for username -->
+        <div class="mb-3">
+            {{ form.username.label_tag }}
+            <input type="text" name="username" class="form-control" pattern="\S+" title="No spaces allowed"
+                   oninput="this.value = this.value.replace(/\s/g, '')"
+                   value="{{ form.username.value|default:'' }}">
+            <div class="text-danger">
+                {% for error in form.username.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Field for email -->
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            <input type="email" name="email" class="form-control" pattern="\S+" title="No spaces allowed"
+                   oninput="this.value = this.value.replace(/\s/g, '')"
+                   value="{{ form.email.value|default:'' }}">
+            <div class="text-danger">
+                {% for error in form.email.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Field for first name -->
+        <div class="mb-3">
+            {{ form.first_name.label_tag }}
+            <input type="text" name="first_name" class="form-control" value="{{ form.first_name.value|default:'' }}">
+            <div class="text-danger">
+                {% for error in form.first_name.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Field for last name -->
+        <div class="mb-3">
+            {{ form.last_name.label_tag }}
+            <input type="text" name="last_name" class="form-control" value="{{ form.last_name.value|default:'' }}">
+            <div class="text-danger">
+                {% for error in form.last_name.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+    <br>
+    <a href="{% url 'my_bookings' %}" class="btn btn-primary mt-2 w-100">My Bookings</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger mt-2 w-100">Log Out</a>
 </div>
+
+<script>
+    // Validation for username and email (no spaces allowed)
+    const noSpaceFields = ['username', 'email'];
+
+    noSpaceFields.forEach(field => {
+        const input = document.querySelector(`[name="${field}"]`);
+        input.addEventListener('input', function () {
+            const errorDiv = input.closest('.mb-3').querySelector('.text-danger');
+            if (/\s/.test(input.value)) {
+                errorDiv.innerHTML = `<p>${field.replace('_', ' ').toUpperCase()} cannot contain spaces.</p>`;
+            } else {
+                errorDiv.innerHTML = '';
+            }
+        });
+    });
+
+    // No validation for first name and last name (allow spaces)
+</script>
+
 {% endblock %}

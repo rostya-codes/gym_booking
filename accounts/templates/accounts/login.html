@@ -3,17 +3,69 @@
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
+<h2>Login</h2>
+<br>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Log In</button>
+
+    <!-- Displaying non-field errors (if any) -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <!-- Field for identifier (username or email) -->
+    <div class="mb-3">
+        {{ form.identifier.label_tag }}
+        <input type="text" name="identifier" class="form-control" pattern="\S+" title="No spaces allowed"
+               oninput="this.value = this.value.replace(/\s/g, '')"
+               value="{{ form.identifier.value|default:'' }}">
+        <div class="text-danger">
+            {% for error in form.identifier.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Field for password (allowing spaces) -->
+    <div class="mb-3">
+        {{ form.password.label_tag }}
+        <input type="password" name="password" class="form-control"
+               value="{{ form.password.value|default:'' }}">
+        <div class="text-danger">
+            {% for error in form.password.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>
 
+<hr>
+
+<!-- Links for Forgot Password and Register, styled similarly to Sign Up -->
 <p class="mt-3">
-    Don't have an account? <a href="{% url 'accounts:register' %}">Sign Up</a>
+    <a href="{% url 'password_reset' %}">Forgot Password?</a>
 </p>
-<p>
-    Forgot your password? <a href="{% url 'password_reset' %}">Reset it here</a>
+<p class="mt-3">
+    Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
 </p>
+
+<script>
+    // Validation for identifier (no spaces allowed)
+    const identifierInput = document.querySelector('[name="identifier"]');
+    identifierInput.addEventListener('input', function () {
+        const errorDiv = identifierInput.closest('.mb-3').querySelector('.text-danger');
+        if (/\s/.test(identifierInput.value)) {
+            errorDiv.innerHTML = '<p>Username or email cannot contain spaces.</p>';
+        } else {
+            errorDiv.innerHTML = '';
+        }
+    });
+</script>
 {% endblock %}
