@@ -30,3 +30,20 @@ body > .container {
     flex-direction: column;
     min-height: 100vh;
 }
+
+/* У твоєму CSS, щоб додати кольори для повідомлень */
+.alert-success {
+    background-color: #d4edda; /* Зелене для успіху */
+    color: #155724;
+}
+
+.alert-error,
+.alert-danger {
+    background-color: #f8d7da; /* Червоне для помилок */
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd; /* Жовте для попереджень */
+    color: #856404;
+}

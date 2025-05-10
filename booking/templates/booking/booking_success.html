@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="alert alert-success">
+    <h4>Booking successful!</h4>
+    <p>Your slot has been successfully booked.</p>
+    <a href="{% url 'my_bookings' %}" class="btn btn-primary mt-3">View My Bookings</a>
+  </div>
+{% endblock %}
