@@ -20,7 +20,7 @@
             <td>{{ user.email }}</td>
             <td>
                 {% for booking in user.bookings.all %}
-                    {{ booking.slot.date }} at {{ booking.slot.time }} ({{ booking.slot.room.name }})<br>
+                    {{ booking.slot.date }} at {{ booking.slot.start_time }} ({{ booking.slot.room }})<br>
                 {% empty %}
                     No bookings
                 {% endfor %}

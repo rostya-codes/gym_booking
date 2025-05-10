@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('accounts/', include('accounts.urls')),
     path('booking/', include('booking.urls')),
-    path('dashboard/', include('admin_panel.urls')),
+    path('custom_admin/', include('admin_panel.urls')),
 ]
 
 # Добавьте эту строку для раздачи статических файлов в режиме разработки

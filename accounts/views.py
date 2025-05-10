@@ -1,7 +1,6 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from django.utils.regex_helper import next_char
 from django.views.decorators.csrf import csrf_protect
 
 from accounts.forms import LoginForm, RegisterForm, UpdateUserForm

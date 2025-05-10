@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from .models import User
+User = get_user_model()
 
 
 class RegisterForm(UserCreationForm):

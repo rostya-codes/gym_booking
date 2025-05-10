@@ -1,8 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.db.models import ForeignKey
-
-User = settings.AUTH_USER_MODEL
 
 
 class Slot(models.Model):
@@ -30,7 +27,7 @@ class Slot(models.Model):
     )
 
     created_by = models.ForeignKey(
-        User,  # або 'auth.User' якщо не кастомна модель
+        settings.AUTH_USER_MODEL,  # або 'auth.User' якщо не кастомна модель
         on_delete=models.SET_NULL,  # або models.CASCADE, якщо хочеш видаляти разом з юзером
         null=True,  # щоб дозволити порожнє значення (наприклад, при автостворенні)
         blank=True,  # дозволяє залишити поле пустим у формах
@@ -46,7 +43,7 @@ class Slot(models.Model):
 
 class Booking(models.Model):
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name="User",
         related_name="bookings"
