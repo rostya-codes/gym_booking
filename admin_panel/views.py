@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import user_passes_test, login_required
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import redirect, render
 
 from admin_panel.forms import CreateSlotForm
 
